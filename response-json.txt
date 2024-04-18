@@ -1,0 +1,18 @@
+=> what is meaning of response.json
+=> In the context of web development and API (Application Programming Interface) usage, response.json() typically refers to a method or function used to extract and parse JSON (JavaScript Object Notation) data from an HTTP response.
+
+When you make a request to an API, the server usually responds with data in a specific format, and JSON is a common format for data interchange. JSON is a lightweight data-interchange format that is easy for humans to read and write and easy for machines to parse and generate.
+
+In many programming languages, when you make an HTTP request, the response object may provide a json() method or function that can be called to extract and parse the response data as a JSON object. This is commonly used in languages like Python, JavaScript, and others.
+
+For example, in Python using the requests library, if you make a request and receive a response object, you can use response.json() to parse the response content as a JSON object:
+
+python
+Copy code
+import requests
+
+response = requests.get('https://api.example.com/data')
+data = response.json()
+
+# Now 'data' contains the JSON content from the API response
+This allows developers to work with the API data as a structured object in their code, making it easier to extract and manipulate the information received from the server.
