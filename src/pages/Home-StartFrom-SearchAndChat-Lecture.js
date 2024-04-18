@@ -1,7 +1,7 @@
 // import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-import { Post,Comment, Loader, FriendsList, CreatePost } from "../components";
+import { Post, Loader, FriendsList, CreatePost } from "../components";
 // import { getPosts } from "../api";
 import styles from "../styles/home.module.css";
 import { useAuth } from "../hooks";

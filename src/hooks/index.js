@@ -419,7 +419,7 @@ export const useProvidePosts = () => {
     // find out the particular post:which matches with the new-comments (postsId):
     const newPosts = posts.map((post) => {
       // then we gonna be create the new-post with the help of that:
-      if (post._id == postId) {
+      if (post._id === postId) {
         // with in that new-post:we gonna be add details of that (post) which we have found:
         // and also:we gonna be add its all (old-comments) with its (newer-comment) as well:
         return { ...post, comments: [...post.comments, comment] };
