@@ -107,7 +107,8 @@ const Post = ({ post }) => {
         <input placeholder="Start typing a comment"
         value={comment}
         onChange={(e) =>setComment(e.target.value)}
-        onKeyDown={handleAddComment} />
+        onKeyDown={handleAddComment} disabled={creatingComment}/>
+        
       </div>
 
       <div className={styles.postCommentsList}>
