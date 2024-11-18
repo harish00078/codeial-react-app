@@ -163,7 +163,7 @@ export const useProvideAuth = () => {
 
   // here we are creating the function:
   // through which we gonna update the (user-profile) data which has been given by the (user) it self on the server:
-  // we also need to pass the (arguments) to this function.
+  // we also need to pass the (arguments) to this function:
   // which basically gonna be  the (fields) of (user-profile).whom's data we want to update on the (server):
   const updateUser = async (userId, name, password, confirmPassword) => {
     // IMP = under this function.we will call the another function:the (edit-profile):
