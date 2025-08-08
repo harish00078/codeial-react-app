@@ -5,7 +5,12 @@
 // here we are using the (APIs) from the coding-ninjas:
 
 // this is the root of the (APIs):
-const API_ROOT = "https://codeial.codingninjas.com:8000/api/v2/";
+// Make it configurable via environment variable for flexibility.
+const RAW_API_ROOT =
+  process.env.REACT_APP_API_ROOT || "https://codeial.codingninjas.com:8000/api/v2/";
+
+// Ensure a single trailing slash so path joins below are consistent
+const API_ROOT = RAW_API_ROOT.replace(/\/+$/, "") + "/";
 
 // here we have the documentation related to these (APIs):In the (notion) documentation system:
 // like how these (APIs) has been created and what are things has been  used to create them:
