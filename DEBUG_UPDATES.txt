@@ -1,0 +1,53 @@
+Debug updates summary (2025-08-08)
+
+1) Overview
+- Purpose: Resolve install/build issues and fix runtime bugs in auth, friends, API client, and prop types.
+- Result: App builds successfully; core runtime issues addressed.
+
+2) Build/Install
+- Installed with: npm install --legacy-peer-deps
+- Build status: Successful production build via react-scripts build
+
+3) Code changes
+- src/hooks/index.js
+  - Changed returned auth loading flag from `laoding` to `loading`.
+  - Fixed login failure return to use `{ success: false, message }` (was `{ return: false, ... }`).
+
+- src/pages/UserProfile.js
+  - Use friends from auth as: `const { friends = [] } = auth.user || {}` (was `auth.user.friendships`).
+  - Removed stray `on` attribute from the Remove Friend button.
+
+- src/components/FriendList.js
+  - Fixed link to use `friend.to_user._id` in profile URL (friend shape from API).
+
+- src/components/Post.js
+  - Corrected PropTypes to `{ post: PropTypes.object.isRequired }`.
+
+- src/api/index.js
+  - Merge headers from `customConfig.headers` (not `customConfig.header`) when building fetch config.
+
+- src/utils/constants.js
+  - Normalized API URL composition to avoid double slashes by using `${API_ROOT}...` for all endpoints.
+
+4) Impact/Why
+- Consistent `loading` naming: Prevents undefined property usage in consumers like `App`.
+- Correct login failure object: Downstream callers now reliably branch on `success`.
+- Friends data access: Matches server response (`friends` with `to_user`), enabling Add/Remove Friend flows.
+- Remove invalid JSX attribute: Prevents potential runtime warnings/errors.
+- Correct PropTypes: Validates expected `post` prop; avoids console noise.
+- API client headers: Ensures caller-specified headers are honored.
+- URL normalization: Prevents network request failures due to `//` in paths.
+
+5) How to verify
+- Install: `npm install --legacy-peer-deps`
+- Dev run: `npm start`
+- Build: `npm run build` (should compile successfully)
+- Manual checks:
+  - Login with valid credentials; on failure, toast shows server message; on success, app state reflects user; token stored.
+  - Navigate to a user profile via search or friends list; Add/Remove Friend buttons work and update toasts/state.
+  - Create post and add comment; toasts appear on success/failure.
+
+6) Notes
+- No test files present; runner exits with "No tests found".
+- Backend used: https://codeial.codingninjas.com:8000/api/v2/
+- If auth oddities persist, clear browser localStorage token key: `__codeial_token__`.

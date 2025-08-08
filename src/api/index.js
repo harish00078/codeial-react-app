@@ -102,7 +102,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
     ...customConfig,
     headers: {
       ...headers,
-      ...customConfig.header,
+      ...customConfig.headers,
     },
   };
 

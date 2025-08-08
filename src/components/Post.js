@@ -122,7 +122,7 @@ const Post = ({ post }) => {
 };
 
 Post.propTypes = {
-  posts: PropTypes.object.isRequired,
+  post: PropTypes.object.isRequired,
 };
 
 export default Post;

@@ -126,7 +126,7 @@ const UserProfile = () => {
     // here we are using the (useAuth) custom-hook:
     // which will  basically have the (user) state in it:
     // from that (user-state).we need get the (friends) or (friends-array) which is related to the (user):
-    const friends = auth.user.friendships;
+    const { friends = [] } = auth.user || {};
     console.log(friends);
 
     // with in our user's (friends-array) we have the (objects).where each-object related our (each-friends) profile-data:
@@ -273,7 +273,6 @@ const UserProfile = () => {
           // so that we are working the button request:then the buttons get disabled:
           <button
             className={`button ${styles.saveBtn}`}
-            on
             onClick={handleRemoveFriendClick}
             disabled={requestInProgress}
           >
