@@ -1,0 +1,69 @@
+API & Mock Setup Guide (2025-08-08)
+
+1) PURPOSE
+- Configure the app to work with either a real backend or a built-in mock API when the real service is unavailable.
+
+2) OPTIONS
+- Real backend (recommended in production)
+- Mock backend (local-only, for development/testing)
+
+Current default: Mock backend is ENABLED via `.env` (REACT_APP_USE_MOCKS=true)
+
+3) REAL BACKEND CONFIG
+- Env var: REACT_APP_API_ROOT
+  - Description: Base URL of the API (with or without trailing slash). It will be normalized.
+  - Examples:
+    - REACT_APP_API_ROOT=https://your-api.example.com/api/v2/
+    - REACT_APP_API_ROOT=http://localhost:8000/api/v2/
+- Steps:
+  1. Open `.env` and set: REACT_APP_USE_MOCKS=false
+  2. Set REACT_APP_API_ROOT as needed (or copy .env.example)
+  3. Restart dev server: npm start
+  4. For prod: npm run build
+- Notes:
+  - URL normalization ensures a single trailing slash; endpoints are joined safely.
+  - If auth breaks across environments, clear localStorage token key: __codeial_token__
+
+4) MOCK BACKEND CONFIG (WHEN REAL API IS DOWN)
+- Env var: REACT_APP_USE_MOCKS=true
+- Steps:
+  1. `.env` already set in repo to enable mocks by default
+  2. (Optional) Keep REACT_APP_API_ROOT for reference (ignored when mocks are on)
+  3. Start: npm start
+- What is mocked:
+  - Auth: login, register, editProfile (returns unsigned demo JWT)
+  - Social: fetchUserFriends, addFriend, removeFriend
+  - Posts: getPosts, addPost, createComment, toggleLike (posts only)
+  - Users: fetchUserProfile, searchUsers
+- Data persistence:
+  - Saved to browser localStorage under key: __mock_db__
+  - Reset by clearing localStorage or removing that key
+- Shape compatibility:
+  - Matches app expectations (e.g., friends array with to_user._id, search returns users[])
+
+5) FILES
+- src/utils/constants.js
+  - Uses REACT_APP_API_ROOT and normalizes trailing slash
+- src/api/index.js
+  - Switches to mocks when REACT_APP_USE_MOCKS=true
+- src/api/mocks.js
+  - Mock API implementation and in-browser data store
+- .env.example
+  - Template for real backend
+- .env.mock.example
+  - Template for mock mode
+
+6) TROUBLESHOOTING
+- 401/Token issues: clear localStorage key __codeial_token__ and log in again
+- Mock data stale: clear localStorage key __mock_db__
+- CORS with real API: use proper API origin or enable a CORS proxy (dev-only)
+- Build ok but runtime network errors: verify REACT_APP_API_ROOT is reachable and correct
+
+7) COMMANDS
+- Start dev: npm start
+- Build prod: npm run build
+
+8) CHANGE LOG (RELEVANT)
+- Added env-driven API root and mock API toggle
+- Implemented local mocks for key endpoints
+- Kept URL join safe by normalizing base URL

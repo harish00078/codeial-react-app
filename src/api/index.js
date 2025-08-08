@@ -11,6 +11,13 @@
 // through which we are converting the (request) body-data. in the form of (x-www-form-urlencoded) request:
 import { API_URLS, getFormBody, LOCALSTORAGE_TOEKN_KEY } from "../utils";
 
+// Toggle between real API and local mocks via env flag
+const USE_MOCKS = String(process.env.REACT_APP_USE_MOCKS || "").toLowerCase() === "true";
+let mockApi;
+if (USE_MOCKS) {
+  mockApi = require("./mocks");
+}
+
 // here we are creating  the (customFetch) function:
 // so that we did not have to write the (fetch) function.again and again for the every function which we will create to get the data from the APIs related to the particular compomemt element of our application:
 // with the help of this (customFetch) function.we did not have to write the (try) and (catch) method again and again as well. for the every function which we have created to get the data of particular application component element:
@@ -190,6 +197,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
 
 // IMP => getPosts is  a (pull) API request:basically it means that we are getting the data from the (API):
 export const getPosts = (page = 1, limit = 5) => {
+  if (USE_MOCKS) return mockApi.getPosts(page, limit);
   // under this function: we need to call the (API):from where we get the (posts) data.
   // Instead of directly calling the (API) in this (function): we will call our  (customFetch)  function. where we have written the (logic) related to our (API) calling:
   // so for  connecting it with the (customFetch) function:we need to return this (getPosts) function's data to the (customFetch) function:
@@ -219,6 +227,7 @@ export const getPosts = (page = 1, limit = 5) => {
 // through which we are sending the (user) credentials to the (server):
 
 export const login = (email, password) => {
+  if (USE_MOCKS) return mockApi.login(email, password);
   // IMP:things we have define in the (return) statement of this function:
   // 1 = first we need to define the particular (URl):related to our (component) function:
   // V.IMP = we also need to define the (url) with its (key) acc to its type:
@@ -238,6 +247,7 @@ export const login = (email, password) => {
 // through which we will basically pass the user (sign-up) form data to the (server):
 // and get the (response) related to that (request) from (server):
 export const register = async (name, email, password, confirmPassword) => {
+  if (USE_MOCKS) return mockApi.register(name, email, password, confirmPassword);
   return customFetch(API_URLS.signup(), {
     method: "POST",
     body: { name, email, password, confirm_password: confirmPassword },
@@ -247,6 +257,7 @@ export const register = async (name, email, password, confirmPassword) => {
 // through which we will basically pass the (new-data) related to the (user-profile) to the (server):
 // and with the help of that new (user-profile) data server gonna change the (profile-data) of the (user) on its (database):
 export const editProfile = async (userId, name, password, confirmPassword) => {
+  if (USE_MOCKS) return mockApi.editProfile(userId, name, password, confirmPassword);
   return customFetch(API_URLS.editUser(), {
     method: "POST",
     body: { id: userId, name, password, confirm_password: confirmPassword },
@@ -256,6 +267,7 @@ export const editProfile = async (userId, name, password, confirmPassword) => {
 // here we have created the (fetchUserProfile) function:
 // through which we gonna be get the (data) related to the particular (user-profile) from the (server) by passing  (user-id) to the (server):
 export const fetchUserProfile = (userId) => {
+  if (USE_MOCKS) return mockApi.fetchUserProfile(userId);
   return customFetch(API_URLS.userInfo(userId), {
     method: "GET",
   });
@@ -264,6 +276,7 @@ export const fetchUserProfile = (userId) => {
 // here we have created the (fetchUserFriends) function:
 // through which we gonna be get the (friendShip) section-data:
 export const fetchUserFriends = () => {
+  if (USE_MOCKS) return mockApi.fetchUserFriends();
   return customFetch(API_URLS.friends(), {
     method: "GET",
   });
@@ -272,6 +285,7 @@ export const fetchUserFriends = () => {
 // here we have created the (addFriend) function:
 // through which we gonna be add the (user) as our (friend) in the user-profile's (friends-ship) section-data:
 export const addFriend = (userId) => {
+  if (USE_MOCKS) return mockApi.addFriend(userId);
   return customFetch(API_URLS.createFriendship(userId), {
     method: "POST",
   });
@@ -279,6 +293,7 @@ export const addFriend = (userId) => {
 // here we have created the (removeFriend) function:
 // through which we gonna be remove the (user) as our (friend) from the user-profile's (friends-ship) section-data:
 export const removeFriend = (userId) => {
+  if (USE_MOCKS) return mockApi.removeFriend(userId);
   return customFetch(API_URLS.removeFriend(userId), {
     method: "POST",
   });
@@ -288,6 +303,7 @@ export const removeFriend = (userId) => {
 // IMP = this function will get the (content) of user's created-post as an argument:
 // V.IMP = and we will send that argument (content) or (content):To the server with in the (body) section of server's api-request:
 export const addPost = (content) => {
+  if (USE_MOCKS) return mockApi.addPost(content);
   return customFetch(API_URLS.createPost(), {
     method: "POST",
     body: {
@@ -298,6 +314,7 @@ export const addPost = (content) => {
 
 // here we have created the (createComment) function:through which we gonna be add the new-comment of the particular post into the server-data:
 export const createComment = async (content, postId) => {
+  if (USE_MOCKS) return mockApi.createComment(content, postId);
   return customFetch(API_URLS.comment(), {
     method: "POST",
     body: {
@@ -310,6 +327,7 @@ export const createComment = async (content, postId) => {
 
 // here we have created the (toggleLike) function:through which we gonna be able to pass the togglelikes data related to our posts and comments into the server database:
 export const toggleLike = ( itemId,itemType) =>{
+  if (USE_MOCKS) return mockApi.toggleLike(itemId, itemType);
   return customFetch(API_URLS.toggleLike(itemId,itemType),{
     method:"POST",
 
@@ -318,6 +336,7 @@ export const toggleLike = ( itemId,itemType) =>{
 
 // here we have created the (searchUsers) function:through which we are gonna be able to get the particular (users) from server:
 export const searchUsers = (searchText)=>{
+  if (USE_MOCKS) return mockApi.searchUsers(searchText);
   return customFetch(API_URLS.searchUsers(searchText),{
     method:'GET'
   })
