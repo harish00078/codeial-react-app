@@ -7,8 +7,8 @@
 // this is the root of the (APIs):
 // Make it configurable via environment variable for flexibility.
 const RAW_API_ROOT =
-  process.env.REACT_APP_API_ROOT || "https://codeial.codingninjas.com:8000/api/v2/";
-
+  process.env.REACT_APP_API_ROOT || "http://localhost:5001/api";
+// "https://codeial.codingninjas.com:8000/api/v2"
 // Ensure a single trailing slash so path joins below are consistent
 const API_ROOT = RAW_API_ROOT.replace(/\/+$/, "") + "/";
 
