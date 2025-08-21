@@ -393,7 +393,7 @@ export const usePosts = () => {
 };
 
 export const useProvidePosts = () => {
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchPosts = async () => {
