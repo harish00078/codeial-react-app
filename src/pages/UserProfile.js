@@ -8,7 +8,7 @@
 // (useParams) =  The useParams hook is a powerful tool in React Router that allows you to access and extract dynamic parameters (also known as URL parameters or path variables) from the current URL path within your functional React components.
 import { useParams, useHistory } from "react-router-dom";
 
-import { useToasts } from "react-toast-notifications";
+import toast from "react-hot-toast";
 
 // here we are importing the (loader) component:
 import { Loader } from "../components";
@@ -41,8 +41,7 @@ const UserProfile = () => {
 
   console.log("userId-for-userProfile-component", userId);
 
-  // here we are calling the (useToasts) library of (react-toast-notification) package:
-  const { addToast } = useToasts();
+  // here we are calling the (toast) library of (react-hot-toast) package:
   // here we are calling the (useHistory) hook:
   // IMP = so that if we did not get the (data) related to other-user's profile from the (server):
   // we will redirect the current (user) to the (home-page) again:
@@ -76,9 +75,7 @@ const UserProfile = () => {
       } else {
         // if we are not able to find out the other(user's) profile-data in the (server):
         // then we need to show the notification to the (user):
-        addToast(response.message, {
-          appearance: "error",
-        });
+        toast.error(response.message);
         // and here we are using the (useHistory) hook:
         // so that we can redirect the current (user) to the (home-page).if we did not get the (data) related to the (user-profile) of the particular (user-id):
         return history.push("/");
@@ -94,7 +91,7 @@ const UserProfile = () => {
 
     // we only want to run this (useEffect) hook:
     // whenever the (userId) get changed:
-  }, [userId, history, addToast]);
+  }, [userId, history]);
 
   // here we are calling the (useLocation) hook:
   // so that we can get the (prop) from it.which we have to pass to it.In the another component:
@@ -170,7 +167,9 @@ const UserProfile = () => {
       // IMP => 1 =  for doing this first we need to find the user-object in the friends section-data of current user's-profile:
       // we can get the user-object from the friends-section:by using its userId:because we have the userId with us which we are getting from the url-params:
       // for finding the user-object.we need to use the (filter) method:because friends-section is the array of multiple user-objects:and we only need to find the one user-object:acc to the userId of the user:
-      const friendship = auth.user.friends.filter((friend)=>friend.to_user._id === userId);
+      const friendship = auth.user.friends.filter(
+        (friend) => friend.to_user._id === userId
+      );
 
       // we can also write the same thing in this way:
       // const friendship = auth.user.friends.filter((friend) => {
@@ -179,16 +178,10 @@ const UserProfile = () => {
       // IMP = filter method basically return us the (array);
       // so we also need to define (index-value) of the array:
       // so  we can acccess that array-value and use it in the (updateUserFriends) function:
-      auth.updateUserFriends(false,friendship[0]);
-      addToast('Friend Removed Successfully',{
-        appearance:'success'
-      });
-
-
-    }else{
-      addToast(response.message,{
-        appearance:'error',
-      })
+      auth.updateUserFriends(false, friendship[0]);
+      toast.success("Friend Removed Successfully");
+    } else {
+      toast.error(response.message);
     }
     setRequestInProgress(false);
   };
@@ -219,13 +212,9 @@ const UserProfile = () => {
       auth.updateUserFriends(true, friendship);
 
       // after all of these we will add the notification:
-      addToast("Friend Added succesfully", {
-        appearance: "success",
-      });
+      toast.success("Friend Added succesfully");
     } else {
-      addToast(response.message, {
-        appearance: "error",
-      });
+      toast.error(response.message);
     }
 
     // here we again change the value of (requestInProgess) state:

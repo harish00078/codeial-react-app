@@ -4,22 +4,18 @@
 import { useState } from "react";
 import styles from "../styles/login.module.css";
 
-// we need to use the particular package of the (react-toast-notification) library for adding the notifications in the particular element of the component :
-// and that  package name is (useToast):
-import { useToasts } from "react-toast-notifications";
+// we need to use the particular package of the (react-hot-toast) library for adding the notifications in the particular element of the component :
+// and that  package name is (toast):
+import toast from "react-hot-toast";
 
 // here we are importing the (Redirect) Method of (react-Router-dom) libarary:
 // through which we can redirect the (user) from (one-page) to the another-page of application:
-import {Redirect} from 'react-router-dom';
-
-
+import { Redirect } from "react-router-dom";
 
 // here we are importing the (useAuth) custom-hook:
 // which we have created.To access the (user-Auth) state:
 // In eaCh and every component of our application:
 import { useAuth } from "../hooks";
-
-
 
 const Login = () => {
   // we are using the (useState) hook:To get the data from the (form):
@@ -37,12 +33,9 @@ const Login = () => {
   // but when request get send to the server:then that button get disabled.until user did not get the conformation related for its first-request to the server:
   const [loggingIn, setLoggingIn] = useState(false);
 
-  // => IMp = useToast package of the notification libray:
-  // It is  also a (hook) or we can say work like (hook):
-  // so we need to use the (addToast) variable of this (useToasts) hook:
+  // => IMp = toast package of the notification libray:
+  // It is  also a (function) or we can say work like (function):
   // through which we gonna add the (notifications) in our (component-elements):
-  const { addToast } = useToasts();
-
 
   // here we are calling the (useAuth) custom-hook:
   // which will have the (userAuth) state in it:
@@ -50,7 +43,7 @@ const Login = () => {
   // so that we can use that (auth) in our (application) component:
   // In which component we are importing it:
   const auth = useAuth();
-  console.log('auth-login',auth);
+  console.log("auth-login", auth);
 
   // here we are creating the (function).
   // through which we will handle the (onSubmit) event-handler of the form-tag:
@@ -88,11 +81,7 @@ const Login = () => {
       // like if its (error) notification.then we need to put the (error) value in it:
       // 2 = autoDismiss:it basically automatically remove the notification:after the time we have given to him:
       // we also have to gave the value to it:like (true) or (false):
-      return addToast("please enter both email or password", {
-        appearance: "error",
-        // we are not writing the autodismiss.here we because we have already declared it in the main file of app:
-        // autoDismiss:true,
-      });
+      return toast.error("please enter both email or password");
     }
 
     // => fourth = if we get the (email) and (password) from the (user):
@@ -124,13 +113,9 @@ const Login = () => {
     // we have to create the (notification) for the (user):
     // acc to that what kind of (response) we get from the (function):
     if (response.success) {
-      addToast("successfully logged in", {
-        appearance: "success",
-      });
+      toast.success("successfully logged in");
     } else {
-      addToast(response.message, {
-        appearance: "error",
-      });
+      toast.error(response.message);
     }
 
     // => sixth = after all of that we set (setLoggingIn) state into (false):
@@ -144,10 +129,9 @@ const Login = () => {
   // for doing that we are using the (Redirect) method of (react-router-dom) library:
   // and for checking that (user) is successfully get authenticated in application:we gonna be use the (useAuth) custom-hook:
   // which will basically have the (context) related to (user) authentication:
-  if(auth.user){
+  if (auth.user) {
     return <Redirect to="/" />;
   }
-
 
   // under the Login-page:we will create the (Form):
   // through which we will get the input from the user related to there user-id and password:

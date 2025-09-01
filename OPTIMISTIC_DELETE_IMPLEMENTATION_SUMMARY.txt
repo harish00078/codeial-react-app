@@ -1,0 +1,21 @@
+This document summarizes the implementation of optimistic updates for post deletion.
+
+Key Changes:
+
+1.  **Code Cleanup (`src/hooks/index.js`):**
+    *   Removed a large block of commented-out legacy code to improve readability.
+    *   Corrected a typo in the `useProvideAuth` hook's return object (`laoding` was renamed to `loading`).
+
+2.  **Optimistic Post Deletion (`src/components/Post.js`):**
+    *   Added a "Delete Post" button to the `Post` component.
+    *   The delete button is only visible to the user who created the post, enforced by checking `auth.user._id` against `post.user._id`.
+    *   When the delete button is clicked, the post is immediately removed from the UI (`optimistic update`).
+    *   The `deletePost` API is then called.
+    *   If the API call fails, the UI is reverted to its original state, preserving the post order.
+
+3.  **State Management for Rollback (`src/hooks/index.js`):**
+    *   Enhanced the `useProvidePosts` hook by renaming the returned `data` property to `posts` for better clarity.
+    *   Exposed the `setPosts` state setter as `setPostsState`. This allows components to directly manipulate the posts array, which is crucial for rolling back the UI to its exact previous state on API failure.
+
+4.  **Styling (`src/styles/home.module.css`):**
+    *   Added CSS rules for the `.postDeleteBtn` class to style the new delete button, giving it a distinct red color and right alignment.

@@ -25,8 +25,8 @@ import { Comment, FriendsList, Loader } from "../components";
 
 // =>  here we are importing the functions.through which we are connecting to the (server):
 // and  getting the (data) for the (component):
-import { getPosts } from "../api";
-import { useAuth } from "../hooks";
+// import { getPosts } from "../api"; // No longer needed - using context
+import { useAuth, usePosts } from "../hooks";
 
 // we are creating the home page or component through  (Function) component type:
 // so for creating the (home) page we can use the (arrow) function:instead of using casual function:
@@ -49,76 +49,19 @@ import { useAuth } from "../hooks";
 // that' why we need to pass the (prop) as object to the (component):
 
 export const Home = () => {
-  // here we are using the (useState) hook to manage our (posts).which get from the (server):
-
-  // IMP = the initail value of (useState) hook will be a empty array:
-
-  // V.IMP = after getting the (posts) from the (setPosts) function to (posts) variable:
-  // we need to gave that (posts) or (posts) variable to our (home-page):
-  // because we have written the (posts-component) in our home-page:
-  // V.IMP = we can do that with the help of (props) method:
-  // so we are passing the (posts) variable.which have our (posts) data:
-  // To our (home-page) with the help of (props) method:
-
-  const [posts, setPosts] = useState([]);
-
-  // here we are creating the another (State) loading:
-  // through which we will show the (loading) spinner on our application-browser:
-  // while we are fetching the (data) from the (server):
-
-  // by default this loader will have the (true) value:
-  // so that when ever our application get start or load:
-  // it will start immediately.and continous running until we will get the (data) from the (server)
-  const [loading, setLoading] = useState(true);
+  // Use posts from PostsContext instead of local state
+  const { data: posts, loading } = usePosts();
 
   // here we are calling the (useAuth) custom-hook:
   // through which we gonna be show the (Friendlist) component only if we have present any (user) in our (useAuth) custom-hook:
   const auth = useAuth();
 
-  useEffect(() => {
-    // V.IMP = so instead of using the (async) function direclty on the (useEffect) method:
-    // we can created the another (arrow-function) and on that (function) we will use the (async) method:
-    // and  In this function we will  (fetch) or get our  (data) from the (api) function:
-    const fetchPosts = async () => {
-      // here we will get the (data) from the (getPosts) function:
-      // and we will save it in the (response) variable:
-      // IMP = we are also using the (await) function on the (variable).
-      // so that we will successfully (fetch) our data from the (api) function:
-      const response = await getPosts();
-      console.log("posts-response", response);
-
-      // IMP => here we are giving our (posts) data to the (setPosts) function of the (useState) hook:
-      // so that our (posts) data will get repersented on the browser:
-      // IMP =>  through this (setPosts) function we will gave our data to the (posts) variable of (useState) hook:
-      // and with the help of that (post) variable.
-      /// we will gave our (posts) data to (post) component:
-
-      // before giving the (post) data to the (setPosts) function:
-      // we need to check that we have the (data) in our (response) or (data-variable);
-      // so that we can avoid the (error) of the (undefined) data:
-      // IMP => we can do that by simply checking the (message-key) in the (data):
-      // if its (success).then it means we have the (data):
-      if (response.success) {
-        setPosts(response.data.posts);
-      }
-
-      // => and after we get the (data) from (server) successfully:
-      // then we need to put the (loader) default value into (false):
-      setLoading(false);
-    };
-
-    // now we just call the (fetchPosts) function:
-    // so that we can access (data) of its outside the (function):In the (useEffect) method:
-    fetchPosts();
-
-    // we are also using the (square) brackets on the (useEffect) method:
-    // so that can only run once:
-  }, []);
+  // No need for useEffect to fetch posts - PostsProvider handles this with auth checks
 
   // here we are using the (Loader-component):
   // To show the Loading state on the browser:
   // util our application did not get the (posts-data) from the (server):
-  // IMP = we do that with the help of our (laoding) state.which we are maintaining:
+  // IMP = we do that with the help of our (loading) state.which we are maintaining:
   // if our (loading) state is true:then we have to show the (Loader):
   // if its not.then it means that we have fetch the (post-data) from the (server):
   // then we have to set the (loading) state to (false):
@@ -147,7 +90,7 @@ export const Home = () => {
       // and under that object we will define the particular value of the (css-element):To the (className) property:
       // which we wanna gave that to the particular element of the (html): 
       // IMP => after creating the (object) we need to connect that (object) with the (className) method of the react: 
-      // V.IMP => so that react knows we are giving the (style) to our (html) elements through this (javascirpt-object): */}
+      // V.V.IMP => so that react knows we are giving the (style) to our (html) elements through this (javascirpt-object): */}
       <div className={styles.postsList}>
         {/* post-wrapper is basically repersents the particular (post) */}
         {/* after getting the (posts) prop.
@@ -167,7 +110,7 @@ export const Home = () => {
           // IMP = after putting our (post-component):
           //    under the map-function.which we are running on the (posts) prop:
           //    It will have the (data) related to our (posts) in the (object) form:
-          //   V.IMP => so we need to gave the (keys) of that (object).
+          //   V.V.IMP => so we need to gave the (keys) of that (object).
           //   which will have the (data) or (value) related to our post-component's (html-elements):
           //    so that we can show that (data) on our component's browser-page:
 
@@ -178,14 +121,14 @@ export const Home = () => {
           // IMP = we are going to gave them there (unique-ID).which we are getting with them from the server:
           // when we are fetching them from the server:which has been given them through the (server):
 
-          // 2 => V.IMP => for the we need to use the (key) method:
+          // 2 => V.V.IMP => for the we need to use the (key) method:
           // and under that (key) method. we will basically define the (object):
           // which will have the (unique) identity for the every post:
           // those we are getting with the (posts) from the (server):
 
-          // 3 => V.IMP => how we can do that:
+          // 3 => V.V.IMP => how we can do that:
           // 1 - we will use the (key) method:
-          // 2 - and under that  (key) method.we will create the object:
+          // 2 - and under that (key) method.we will create the object:
           // 3 - under that object we gonna use the (string-interpolation) method:
           // 4 - To create a (key):and that will have a value of the (post) unique-key or identity:
           // here (post) is our key.and that key will have a value of post's (unique-identity):

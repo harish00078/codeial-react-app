@@ -1,0 +1,45 @@
+AUTHENTICATION FIX SUMMARY
+==========================
+
+PROBLEM IDENTIFIED:
+- The "No token provided" error was occurring because posts were being fetched immediately when the app loaded, regardless of user authentication status
+- The PostsProvider was wrapping the entire app and fetching posts on mount
+- The Home component also had its own useEffect that fetched posts directly
+
+SOLUTION IMPLEMENTED:
+1. Modified useProvidePosts hook in src/hooks/index.js:
+   - Added authentication check: `if (!auth.user)` before fetching posts
+   - Only fetches posts when user is authenticated
+   - Returns empty posts array and sets loading to false when not authenticated
+   - Added dependency on `auth.user` to re-run when authentication status changes
+
+2. Updated Home component in src/pages/Home-DetailedCode-tillUserProfile-Lecture.js:
+   - Removed redundant useEffect that was fetching posts directly
+   - Now uses posts from PostsContext via usePosts() hook
+   - Eliminates duplicate API calls and authentication bypass
+
+HOW IT WORKS:
+1. App loads → PostsProvider initializes but doesn't fetch posts (no user)
+2. User navigates to login/signup → No posts fetched, no API errors
+3. User logs in → auth.user becomes truthy → PostsProvider fetches posts
+4. User logs out → auth.user becomes null → PostsProvider clears posts
+
+BENEFITS:
+- Prevents "No token provided" errors on unauthenticated pages
+- Centralizes post fetching logic in PostsProvider
+- Eliminates redundant API calls
+- Maintains proper authentication flow
+- UI gracefully handles unauthenticated state
+
+FILES MODIFIED:
+- src/hooks/index.js: useProvidePosts hook now checks auth.user
+- src/pages/Home-DetailedCode-tillUserProfile-Lecture.js: Uses context instead of direct API calls
+
+TESTING:
+- Login page should load without API errors
+- Home page should show loading then posts after login
+- Logout should clear posts without errors
+- No more "No token provided" errors in console
+
+End of summary
+

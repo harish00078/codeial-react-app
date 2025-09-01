@@ -1,0 +1,46 @@
+API Integration Notes (SocialNode endpoints)
+
+Summary
+- Switched API client to your local server per src/api_documentation.md
+- Requests now use JSON (Content-Type: application/json)
+- Normalized responses so components keep working without refactors
+- Friendships are temporarily stubbed (not in your doc); likes use like/unlike endpoints
+
+Files changed
+- src/utils/constants.js
+  - Mapped endpoints to:
+    - Auth:  auth/login, auth/register, auth/refresh
+    - Users: users/me (GET, PUT), users/:id, users/search?text=...
+    - Posts: posts (GET list, POST create), posts/:id (PUT/DELETE), posts/user/:userId
+    - Comments: comments/:postId (GET), comments (POST), comments/:id (DELETE)
+    - Likes: likes/like, likes/unlike, likes/:postId/count
+- src/api/index.js
+  - customFetch → JSON headers, safe JSON parse, unified { success, data, message }
+  - login/register/editProfile payloads and response adapters
+  - getPosts returns { data: { posts } }
+  - addPost returns { data: { posts: post } } to match CreatePost usage
+  - createComment returns { data: { comment } }
+  - toggleLike uses like→unlike fallback and returns { data: { deleted: boolean } }
+  - fetchUserFriends → returns empty list; addFriend/removeFriend → "Friends API not available"
+
+Environment
+- Configure base URL in .env (optional):
+  REACT_APP_API_ROOT=http://localhost:5001/api
+  REACT_APP_USE_MOCKS=false
+
+Behavioral notes
+- Search users: uses users/search?text=... If your backend doesn’t have it, UI will just show no results.
+- Friendships: UI won’t crash; add/remove return a clear error until endpoints are provided.
+- Likes: Only post likes supported in client. Comment likes not implemented in current UI.
+
+Quick test checklist
+1) Login: valid user → success toast; token stored; navbar shows user
+2) Feed: posts load without errors
+3) Create post: creates and appears at top of feed; success toast
+4) Comment: type and press Enter → appears under post; success toast
+5) Like/unlike: toggles with success toasts and count updates
+
+Rollback
+- To revert to previous Coding Ninjas API, restore API_URLS and old x-www-form-urlencoded encoding.
+
+End of notes

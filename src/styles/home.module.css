@@ -248,3 +248,18 @@
 .addPostBtn:hover {
   cursor: pointer;
 }
+
+.postDeleteBtn {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px;
+  float: right;
+}
+
+.postDeleteBtn:hover {
+  background-color: #d9363e;
+}

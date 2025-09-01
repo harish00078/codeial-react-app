@@ -8,15 +8,14 @@
 // through which we will basically manage the (states) of this (component-elements);
 import { useState } from "react";
 
-// here we importing the (useToasts) library of (react-toast-notification) package:
+// here we importing the (toast) library of (react-hot-toast) package:
 // through which we gonna show the notification on setting component page:
 // when (user's) profile-data (successfully) get (updated) on the server:
-import { useToasts } from "react-toast-notifications";
+import toast from "react-hot-toast";
 
 // here we are importing our styles-file from styles-folder:
 // which we have  created for this (page):
 import styles from "../styles/settings.module.css";
-
 
 // here we are importing the (useAuth) custom-hook:
 // through which we will  access the (Auth-Context) of our application:
@@ -83,11 +82,9 @@ const Settings = () => {
   // => 5 = third we will create the state for  form's (confirmPassword-element) data:
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  // here we are calling the (useToasts) library:
-  // through which we gonna use its (addToast) function:
-  // and provide the (notification) to the elements of this (component) with the help of that (addToast) function:
-  const { addToast } = useToasts();
-
+  // here we are calling the (toast) library:
+  // through which we gonna use its (toast) function:
+  // and provide the (notification) to the elements of this (component) with the help of that (toast) function:
 
   // here we are creating the (clearForm) fucntion:
   // through which we will clear the (password-fields) data of the (form):
@@ -99,12 +96,9 @@ const Settings = () => {
     // clearing the  (values) of our (password) states:
     // In which we are basically maintaing the (password) values of the (user):
     // IMP = we can simply put the (empty-string) value in those (password) states:
-    setPassword('');
-    setConfirmPassword('');
-
+    setPassword("");
+    setConfirmPassword("");
   };
-
-
 
   // IMP = here we creating the (updateProfle) function:
   // through which we gonna pass the (new-data) of the (user-profile) to the (server):
@@ -129,9 +123,7 @@ const Settings = () => {
     // we need to check the (few) things and have the more (things) then the new-data for passing the new (user-profile) data to the (server):
 
     if (!name || !password || !confirmPassword) {
-      addToast("please fill all the fields", {
-        appearance: "error",
-      });
+      toast.error("please fill all the fields");
       // here we are changing the value of the variable to (true):
       // so that we can trigger the notification.to tell the user that where they have made the mistake:
       error = true;
@@ -139,9 +131,7 @@ const Settings = () => {
 
     // we also need to check that password and confirmpassword is matches with each other:
     if (password !== confirmPassword) {
-      addToast("password and confirm password does not match", {
-        appearance: "error",
-      });
+      toast.error("password and confirm password does not match");
       error = true;
     }
 
@@ -159,7 +149,6 @@ const Settings = () => {
     // then we can send the (resquest) to the (server) with the (user) data:
     // IMP = we can send the request to the (server) with the help of our (useAuth) custom-hook's (updateUser) function:
     // IMP =  we also need to use the (await) method on it:so that we did not get any (error):while sending the (request) to the (Server):
-     
     const response = await auth.updateUser(
       // 1 =  here the (user-id) field:whose (value) we are getting from our (useAuth) custom-hook.which will have the (context) related to (user-data) in it:
       auth.user._id,
@@ -178,8 +167,8 @@ const Settings = () => {
     // like: 2 =  we need to change the (state) value Of (edit-profile) button or (edit-mode):
     // 3 = we also need to change the (state) value of (save-button) as well:
 
-    if(response.success){
-      // here we are changing the state (value) of (editMode): 
+    if (response.success) {
+      // here we are changing the state (value) of (editMode):
       // if the (response) was (successfull).which we get from the (server).
       // because then we need to set the  (user) to automatically get into the (edit-Profile) button page:
       setEditMode(false);
@@ -193,26 +182,18 @@ const Settings = () => {
       // we only need to clear the (password) fields.because the (name) field will get its (updated-name) value automaticallty:
       // that why here we are calling the (clearForm) function:through which we will basically clear our form's (password-fields) data:
       clearForm();
-      addToast('User Updated successfully',{
-        appearance:'success'
-      });
+      toast.success("User Updated successfully");
       // if the (response) we not (successfull):
-    }else{
+    } else {
       // then we need to show the (error) notification to the (user):
       // we will show the (error) message:
       // which we get from the (server):
-      addToast(response.message,{
-        appearance:'error'
-      })
-
+      toast.error(response.message);
     }
-    
-
 
     // IMP = if the (response) was (success) which (user) get from the (server) related to its (request):
     // then we also need to  change the value of  (savingForm) state:so that (user) can again use that (button):
     setSavingForm(false);
-
   };
 
   // 1 = we need to provide the (styles) to the (elements) of this page or component:
@@ -384,12 +365,12 @@ const Settings = () => {
             {/* IMP => we need to (disbaled) this (button).acc to the (value) of our (savingForm) state:
           => for disabling this button.we need to use the (disabled) attribute.
           => and under that attribute we are passing the (savingForm) state to it: */}
-           <button
+            <button
               className={`button ${styles.saveBtn}`}
               onClick={updateProfile}
               disabled={savingForm}
             >
-              {savingForm ? 'Saving profile...' : 'Save profile'}
+              {savingForm ? "Saving profile..." : "Save profile"}
             </button>
 
             {/* here we are adding the another button:the (back-button):
@@ -400,9 +381,7 @@ const Settings = () => {
             // we need to use the (onClick) event-hanlder and with in the that event-hanlder we need use the function on this button.through which we gonna change that value of (editMode) state and gonna  gave back that changed to it. */}
             <button
               className={`button ${styles.editBtn}`}
-              onClick={() => 
-                setEditMode(false)
-              }
+              onClick={() => setEditMode(false)}
             >
               Go Back
             </button>
@@ -416,9 +395,7 @@ const Settings = () => {
 
           <button
             className={`button ${styles.editBtn}`}
-            onClick={() => 
-              setEditMode(true)
-            }
+            onClick={() => setEditMode(true)}
           >
             Edit Profile
           </button>

@@ -1,53 +1,49 @@
-// => In this constants-file we will put all the things which were did not get changed:
+// Updated constants.js to match your local server API endpoints
 
-// what are APIs: Application Programming Interfaces APIs (Application Programming Interfaces) are software components that enable two software components to communicate with each other using a set of definitions and protocols. APIs serve as an intermediary between two disconnected applications, and can handle requests, business logic, and data formats. APIs can be open source or private, and may or may not require a network to function.
-
-// here we are using the (APIs) from the coding-ninjas:
-
-// this is the root of the (APIs):
 // Make it configurable via environment variable for flexibility.
 const RAW_API_ROOT =
   process.env.REACT_APP_API_ROOT || "http://localhost:5001/api";
-// "https://codeial.codingninjas.com:8000/api/v2"
+
 // Ensure a single trailing slash so path joins below are consistent
 const API_ROOT = RAW_API_ROOT.replace(/\/+$/, "") + "/";
 
-// here we have the documentation related to these (APIs):In the (notion) documentation system:
-// like how these (APIs) has been created and what are things has been  used to create them:
-
-// doc url - https://www.notion.so/aakashcn/Codeial-API-docs-3a4d0b5a42c54f0a94d951a42aabc13f
-
-// here we have stored our all the (API-URls):In the export method with the help of (const) variable (object):so that we can use them in the other files of the application as well:
-// this (API_URlS) is basically a (object).which has the (Key,value) pairs in it.these (key,values) are in the form of (functions):
-// here we have created the (object) of (API-URls):so that we can store them in the form of (Key, Value) pairs:
-// here these (keys) basically are the functions and these (values) are value for those functions:
-// IMP => we use the (function) method instead of using the simple (String) method:To create key,value pairs:because In some of the (API-urls) we have the conditions present in them:so for passing those (urls) a condition (value): we need to use the function method:so that we can pass the condition (values) to those (urls) with the help of  function (argument):
-
-// IMP => we also need to convert those (API-urls) into the pure (string) form:so for that we are using the (string-interpolation) function:
-
+// Updated API URLs to match your local server endpoints
 export const API_URLS = {
-  login: () => `${API_ROOT}users/login`,
-  signup: () => `${API_ROOT}users/signup`,
-  posts: (page, limit) => `${API_ROOT}posts?page=${page}&limit=${limit}`,
-  createPost: () => `${API_ROOT}posts/create`,
-  createFriendship: (userId) =>
-    `${API_ROOT}friendship/create_friendship?user_id=${userId}`,
-  friends: () => `${API_ROOT}friendship/fetch_user_friends`,
-  removeFriend: (userId) =>
-    `${API_ROOT}friendship/remove_friendship?user_id=${userId}`,
-  toggleLike: (itemId, itemType) =>
-    `${API_ROOT}likes/toggle?likeable_id=${itemId}&likeable_type=${itemType}`, // itemType is 'Post'/'Comment'
-  getLikes: (itemId, itemType) =>
-    `${API_ROOT}likes?likeable_id=${itemId}&likeable_type=${itemType}`,
-  comment: () => `${API_ROOT}comments`, // POST - create, GET - list of comments
-  deleteComment: (commentId) => `${API_ROOT}comments?comment_id=${commentId}`,
-  editUser: () => `${API_ROOT}users/edit`,
-  userInfo: (userId) => `${API_ROOT}users/${userId}`,
+  // Authentication API - Base Path: /api/auth
+  login: () => `${API_ROOT}auth/login`,
+  signup: () => `${API_ROOT}auth/register`,
+  refresh: () => `${API_ROOT}auth/refresh`,
+
+  // Users API - Base Path: /api/users
+  userProfile: () => `${API_ROOT}users/me`, // GET current user's profile
+  editUser: () => `${API_ROOT}users/me`, // PUT update current user's profile
+  userInfo: (userId) => `${API_ROOT}users/${userId}`, // GET specific user info (if needed)
+
+  // Posts API - Base Path: /api/posts
+  posts: (page, limit) => `${API_ROOT}posts?page=${page}&limit=${limit}`, // GET feed of posts
+  userPosts: (userId) => `${API_ROOT}posts/user/${userId}`, // GET posts by specific user
+  createPost: () => `${API_ROOT}posts`, // POST create new post
+  updatePost: (postId) => `${API_ROOT}posts/${postId}`, // PUT update post
+  deletePost: (postId) => `${API_ROOT}posts/${postId}`, // DELETE post
+
+  // Comments API - Base Path: /api/comments
+  postComments: (postId) => `${API_ROOT}comments/${postId}`, // GET comments for a post
+  comment: () => `${API_ROOT}comments`, // POST create comment
+  deleteComment: (commentId) => `${API_ROOT}comments/${commentId}`, // DELETE comment
+
+  // Likes API - Base Path: /api/likes
+  likesCount: (postId) => `${API_ROOT}likes/${postId}/count`, // GET likes count
+  likePost: () => `${API_ROOT}likes/like`, // POST like a post
+  unlikePost: () => `${API_ROOT}likes/unlike`, // POST unlike a post
+
+  // Legacy endpoints (keeping for backward compatibility if needed)
   searchUsers: (searchText) => `${API_ROOT}users/search?text=${searchText}`,
+  
+  // These might not be in your current API but keeping for reference
+  friends: () => `${API_ROOT}friendship/fetch_user_friends`,
+  createFriendship: (userId) => `${API_ROOT}friendship/create_friendship?user_id=${userId}`,
+  removeFriend: (userId) => `${API_ROOT}friendship/remove_friendship?user_id=${userId}`,
 };
 
-// HERE we create the (key) or we can say the (unique-key):
-// IMP =  through this (key):we will bascially store the (token-value) of the (user-authentication).In our localstorage:
-// we will use this (unique-key).everywhere in our application:
-// To basically (get),(set) and (remove) the (token-value) of the (user-auth) from our localstorage:
+// Token storage key
 export const LOCALSTORAGE_TOEKN_KEY = "__codeial_token__";

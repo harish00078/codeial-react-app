@@ -1,0 +1,26 @@
+# API Fix Summary
+
+This document outlines the changes made to resolve the issue where the React application could not communicate with the local server API.
+
+## Problem
+The codebase contained two different API configurations and fetching implementations that were conflicting:
+1.  An older implementation that sent data as `application/x-www-form-urlencoded`.
+2.  A newer, correct implementation that sends data as `application/json`, which the local server expects.
+
+This conflict, caused by duplicated code blocks in `src/api/index.js` and `src/utils/constants.js`, was causing all API requests to the local server to fail.
+
+## Solution
+The following steps were taken to fix the issue:
+
+1.  **Cleaned up `src/utils/constants.js`**: Removed the outdated `API_URLS` object and related variables, leaving only the correct, modern configuration that points to the local server endpoints (e.g., `http://localhost:5001/api/...`).
+
+2.  **Cleaned up `src/api/index.js`**:
+    *   Removed the old `customFetch` function which was configured to send data in the wrong format (`x-www-form-urlencoded`).
+    *   Removed all the old API helper functions that were using the incorrect `customFetch`.
+    *   This leaves only the modern `customFetch` that correctly uses `application/json`.
+
+3.  **Cleaned up `src/utils/index.js`**:
+    *   Removed the `getFormBody` helper function, as it was only used by the old, incorrect API implementation.
+    *   Removed the corresponding import from `src/api/index.js`.
+
+These changes unify the application's API layer, ensuring all requests are sent in the correct format to the local server. The API should now work as expected.

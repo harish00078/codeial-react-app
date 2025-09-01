@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "../styles/home.module.css";
 // here we importing the (addPost) function:through which we are sending the (create-post) request to the (server) with  (post-content) of user's created-post:
 import { addPost } from "../api";
-import { useToasts } from "react-toast-notifications";
+import toast from "react-hot-toast";
 import { usePosts } from "../hooks";
 
 const CreatePost = () => {
@@ -12,8 +12,7 @@ const CreatePost = () => {
   // here we are managing the (state) of (add-Post) button:so that user will not able to click the add-post button randomly after clicking it once:
   const [addingPost, setAddingPost] = useState(false);
 
-  // here we are using the (addToast) method of (useToast) function:through which we gonna be respersents the notification to the (user):when its create-post request get's satteled by the server:
-  const { addToast } = useToasts();
+  // here we are using the toast function from react-hot-toast:through which we gonna be respersents the notification to the (user):when its create-post request get's satteled by the server:
 
   // IMP = here we are calling the (usePosts) custom-hook:
   const posts = usePosts();
@@ -29,13 +28,9 @@ const CreatePost = () => {
       // IMP = here we are passing the  user's newly created posts which we have get from the (server):To the (addPostToState) function of our (usePosts) custom-hook:
 
       posts.addPostToState(response.data.posts);
-      addToast("post created successfully", {
-        appearance: "success",
-      });
+      toast.success("post created successfully");
     } else {
-      addToast(response.message, {
-        appearance: "error",
-      });
+      toast.error(response.message);
     }
     setAddingPost(false);
   };
