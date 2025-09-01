@@ -130,11 +130,11 @@ export const getUserPosts = (userId, page = 1, limit = 5) => {
   });
 };
 
-export const addPost = (content) => {
-  if (USE_MOCKS) return mockApi.addPost(content);
+export const addPost = (text) => {
+  if (USE_MOCKS) return mockApi.addPost(text);
   return customFetch(API_URLS.createPost(), {
     method: "POST",
-    body: { content },
+    body: { text },
   });
 };
 
