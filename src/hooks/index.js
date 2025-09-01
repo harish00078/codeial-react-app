@@ -111,7 +111,7 @@ export const useProvideAuth = () => {
 
       if (response.success) {
         const userData = response.data.user || response.data;
-        const token = response.data.token;
+        const token = response.data.accessToken;
 
         setUser(userData);
 

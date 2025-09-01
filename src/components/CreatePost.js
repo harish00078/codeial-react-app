@@ -27,7 +27,7 @@ const CreatePost = () => {
       setPost("");
       // IMP = here we are passing the  user's newly created posts which we have get from the (server):To the (addPostToState) function of our (usePosts) custom-hook:
 
-      posts.addPostToState(response.data.posts);
+      posts.addPostToState(response.data.post);
       toast.success("post created successfully");
     } else {
       toast.error(response.message);

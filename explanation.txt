@@ -1,0 +1,23 @@
+This file explains the work done to fix the "add post" and "login" issues.
+
+**Problem:**
+
+1.  **Login Issue:** The application was unable to log in successfully because the backend was sending the authentication token as `accessToken`, but the frontend was expecting it as `token`. This resulted in the token not being stored in local storage, causing all subsequent API requests to fail with a "No token provided" error.
+2.  **Add Post Issue:** The "add post" functionality was broken because the frontend was trying to access `response.data.posts` from the API response, but the API was returning the new post object as `response.data.post`.
+
+**Files Modified:**
+
+1.  `src/hooks/index.js`
+2.  `src/components/CreatePost.js`
+
+**Changes Made:**
+
+1.  **`src/hooks/index.js`:**
+    *   In the `login` function, the line `const token = response.data.token;` was changed to `const token = response.data.accessToken;` to correctly extract the token from the API response.
+
+2.  **`src/components/CreatePost.js`:**
+    *   In the `handleAddPostClick` function, the line `posts.addPostToState(response.data.posts);` was changed to `posts.addPostToState(response.data.post);` to correctly pass the new post object to the state.
+
+**Reasoning for Changes:**
+
+These changes were necessary to align the frontend code with the actual API responses from the backend. By correctly extracting the `accessToken` and the new `post` object, the login and add post functionalities are now working as expected.
