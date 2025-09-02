@@ -32,6 +32,7 @@ const Login = () => {
   // IMP = By default its (false):means user can use that button to send request to the server:
   // but when request get send to the server:then that button get disabled.until user did not get the conformation related for its first-request to the server:
   const [loggingIn, setLoggingIn] = useState(false);
+  const [buttonHovered, setButtonHovered] = useState(false);
 
   // => IMp = toast package of the notification libray:
   // It is  also a (function) or we can say work like (function):
@@ -222,10 +223,42 @@ const Login = () => {
       => under this div. we will have our submit button: */}
       {/* IMP = here we are giving the (disabled) property to this (button) through its (div):
       => and that disabled property will have a (value) in it.acc to the (loggingIn) state.which we have maintain with the help of usestate hook:  */}
-      <div className={styles.field} disabled={loggingIn}>
+      <div className={styles.field}>
         {/* IMP = here we are giving the (object) to this button:
         => with the help of our (loggingIn) state:so that user did not trigger that button again and again: */}
-        <button>{loggingIn ? "Logging in...." : "Log In"}</button>
+        <button
+          disabled={loggingIn}
+          onMouseEnter={() => setButtonHovered(true)}
+          onMouseLeave={() => setButtonHovered(false)}
+          style={{
+            width: "100%",
+            marginTop: "20px",
+            background: loggingIn
+              ? "linear-gradient(135deg, #a0aec0 0%, #9ca3af 100%)"
+              : "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            borderRadius: "8px",
+            color: "white",
+            fontSize: "16px",
+            fontWeight: "600",
+            padding: "12px 24px",
+            border: "none",
+            outline: "none",
+            cursor: loggingIn ? "not-allowed" : "pointer",
+            transition: "all 0.3s ease",
+            boxShadow:
+              buttonHovered && !loggingIn
+                ? "0 8px 25px rgba(102, 126, 234, 0.4)"
+                : "0 4px 15px rgba(102, 126, 234, 0.3)",
+            transform:
+              buttonHovered && !loggingIn
+                ? "translateY(-2px)"
+                : "translateY(0)",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          {loggingIn ? "Logging in...." : "Log In"}
+        </button>
       </div>
     </form>
   );

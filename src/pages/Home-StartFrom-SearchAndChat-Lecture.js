@@ -40,7 +40,7 @@ const Home = () => {
       <div className={styles.postsList}>
         {/* here we are calling the (createPost) component:In our (home) component */}
         <CreatePost />
-        {Array.isArray(posts.data) && posts.data.map((post) => (
+        {Array.isArray(posts.posts) && posts.posts.map((post) => (
           <Post post={post} key={`post-${post._id}`}/>
         ))} 
       </div>

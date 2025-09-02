@@ -10,7 +10,7 @@ import {
   fetchUserFriends,
   register,
   login as userLogin,
-  getPosts,
+  getUserPosts,
   fetchCurrentUserProfile, // New function for getting current user
 } from "../api";
 
@@ -202,19 +202,18 @@ export const useProvidePosts = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      // Only fetch posts if user is authenticated
-      if (!auth.user) {
+      // Only fetch posts if user is authenticated and has a valid _id
+      if (!auth.user || !auth.user._id) {
         setLoading(false);
         setPosts([]);
         return;
       }
 
       try {
-        const response = await getPosts();
-        console.log("postsProvider", response);
+        const response = await getUserPosts(auth.user._id);
 
         if (response.success) {
-          const postsData = response.data.posts || response.data;
+          const postsData = response.data.items || response.data;
           setPosts(Array.isArray(postsData) ? postsData : []);
         } else {
           console.error("Failed to fetch posts:", response.message);

@@ -1,18 +1,17 @@
-/* Modern Home Page Styles */
+/* Clean and Responsive Home Page Styles */
 .home {
-  padding: 24px;
+  padding: 20px;
   display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 32px;
+  grid-template-columns: 1fr 280px;
+  gap: 24px;
   max-width: 1200px;
   margin: 0 auto;
-  min-height: calc(100vh - 80px);
 }
 
 .postsList {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 /* Enhanced Post Styles */
@@ -20,19 +19,20 @@
   background: white;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .postWrapper:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
 .postHeader {
-  padding: 20px 24px 16px;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f3f4f6;
 }
 
 .postAvatar {
@@ -47,16 +47,17 @@
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #667eea;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
 }
 
 .postAvatar > div {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
 .postAuthor {
-  color: #2d3748;
+  color: #1a202c;
   font-weight: 700;
   font-size: 16px;
   text-decoration: none;
@@ -65,29 +66,27 @@
 
 .postAuthor:hover {
   color: #667eea;
-  text-decoration: none;
 }
 
 .postTime {
   color: #718096;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 12px;
 }
 
 .postContent {
   padding: 20px 24px;
   font-size: 16px;
   line-height: 1.7;
-  color: #4a5568;
-  background: #fafbfc;
+  color: #2d3748;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
 .postActions {
   display: flex;
   align-items: center;
-  gap: 32px;
-  padding: 16px 24px;
-  border-top: 1px solid #f0f0f0;
+  gap: 24px;
+  padding: 12px 20px;
+  border-top: 1px solid #f3f4f6;
   background: white;
 }
 
@@ -95,72 +94,65 @@
 .postCommentsIcon {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border-radius: 20px;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.2s ease;
   color: #718096;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .postLike:hover,
 .postCommentsIcon:hover {
-  background: #f7fafc;
-  color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .postActions img {
-  width: 20px;
-  height: 20px;
-  transition: transform 0.3s ease;
-}
-
-.postLike:hover img,
-.postCommentsIcon:hover img {
-  transform: scale(1.1);
+  width: 16px;
+  height: 16px;
 }
 
 .postLike span,
 .postCommentsIcon span {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .postCommentBox {
-  padding: 20px 24px;
-  border-top: 1px solid #f0f0f0;
-  background: #fafbfc;
+  padding: 16px 20px;
+  border-top: 1px solid #f3f4f6;
+  background: #fafafa;
 }
 
 .postCommentBox input {
   width: 100%;
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 14px;
-  transition: all 0.3s ease;
-  background: white;
+  padding: 8px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 13px;
+  transition: border-color 0.2s ease;
 }
 
 .postCommentBox input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #3182ce;
 }
 
 .postCommentsList {
-  padding: 0 24px 20px;
-  background: #fafbfc;
+  padding: 0 20px 16px;
+  background: #fafafa;
 }
 
 .postCommentItem {
   background: white;
-  border-radius: 12px;
-  padding: 16px;
-  margin-top: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  border: 1px solid #f0f0f0;
+  border-radius: 6px;
+  padding: 12px;
+  margin-top: 8px;
+  border: 1px solid #e2e8f0;
   position: relative;
 }
 
@@ -168,47 +160,42 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .postCommentAuthor {
-  font-weight: 700;
-  font-size: 14px;
-  color: #2d3748;
+  font-weight: 600;
+  font-size: 12px;
+  color: #1a202c;
 }
 
 .postCommentTime {
-  font-size: 12px;
+  font-size: 11px;
   color: #718096;
 }
 
 .postCommentLikes {
-  font-size: 12px;
-  color: #667eea;
-  font-weight: 600;
+  font-size: 11px;
+  color: #3182ce;
+  font-weight: 500;
 }
 
 .postCommentContent {
-  color: #4a5568;
-  font-size: 14px;
-  line-height: 1.6;
+  color: #2d3748;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .commentLike {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 8px;
+  right: 8px;
   cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.commentLike:hover {
-  transform: scale(1.1);
 }
 
 .commentLike img {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
 }
 
 /* Enhanced Friends List */
@@ -216,28 +203,29 @@
   background: white;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  height: fit-content;
-  max-height: 600px;
-  overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  height: fit-content;
+  max-height: 500px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
 }
 
 .friendsList .header {
   padding: 20px 24px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f3f4f6;
   font-weight: 700;
   font-size: 18px;
-  color: #2d3748;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .friendsList .friendsImg img {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #667eea;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
 }
 
 .noFriends {
@@ -245,37 +233,37 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 32px 20px;
   color: #718096;
   text-align: center;
 }
 
 .noFriends::before {
   content: "👥";
-  font-size: 48px;
-  margin-bottom: 16px;
+  font-size: 32px;
+  margin-bottom: 12px;
 }
 
 .friendsItem {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 24px;
-  color: #4a5568;
+  gap: 10px;
+  padding: 10px 20px;
+  color: #2d3748;
   text-decoration: none;
-  transition: all 0.3s ease;
-  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f3f4f6;
 }
 
 .friendsItem:hover {
-  background: #f7fafc;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   color: #667eea;
   transform: translateX(4px);
 }
 
 .friendsName {
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 500;
+  font-size: 13px;
 }
 
 /* Enhanced Create Post */
@@ -283,8 +271,9 @@
   background: white;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
 }
 
 .createPost textarea {
@@ -295,8 +284,8 @@
   resize: vertical;
   font-size: 16px;
   line-height: 1.6;
-  color: #4a5568;
-  background: #fafbfc;
+  color: #2d3748;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
 .createPost textarea:focus {
@@ -305,8 +294,8 @@
 }
 
 .createPost > div {
-  padding: 16px 24px;
-  border-top: 1px solid #f0f0f0;
+  padding: 12px 20px;
+  border-top: 1px solid #f3f4f6;
   display: flex;
   justify-content: flex-end;
   background: white;
@@ -317,95 +306,62 @@
   color: white;
   border: none;
   padding: 12px 24px;
-  border-radius: 12px;
+  border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 .addPostBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
 
 .addPostBtn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  transform: none;
 }
 
 .postDeleteBtn {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  background: #e53e3e;
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+  font-size: 12px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 12px;
+  right: 12px;
 }
 
 .postDeleteBtn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+  background: #c53030;
 }
 
 /* Responsive Design */
 @media (max-width: 1024px) {
   .home {
-    grid-template-columns: 1fr 250px;
-    gap: 24px;
-    padding: 20px;
+    grid-template-columns: 1fr 240px;
+    gap: 20px;
+    padding: 16px;
   }
 }
 
 @media (max-width: 768px) {
   .home {
     grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 16px;
+    gap: 16px;
+    padding: 12px;
   }
 
   .friendsList {
     order: -1;
-    max-height: 300px;
-  }
-
-  .postWrapper {
-    border-radius: 12px;
-  }
-
-  .postHeader,
-  .postContent,
-  .postActions,
-  .postCommentBox {
-    padding: 16px 20px;
-  }
-
-  .postCommentsList {
-    padding: 0 20px 16px;
-  }
-
-  .createPost textarea {
-    padding: 16px 20px;
-  }
-
-  .createPost > div {
-    padding: 12px 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .home {
-    padding: 12px;
-    gap: 16px;
+    max-height: 250px;
   }
 
   .postHeader,
@@ -419,30 +375,56 @@
     padding: 0 16px 12px;
   }
 
-  .postAvatar img {
-    width: 40px;
-    height: 40px;
-  }
-
-  .postAuthor {
-    font-size: 15px;
-  }
-
-  .postContent {
-    font-size: 15px;
-  }
-
   .createPost textarea {
     padding: 12px 16px;
-    min-height: 100px;
   }
 
   .createPost > div {
     padding: 8px 16px;
   }
+}
+
+@media (max-width: 480px) {
+  .home {
+    padding: 8px;
+    gap: 12px;
+  }
+
+  .postHeader,
+  .postContent,
+  .postActions,
+  .postCommentBox {
+    padding: 10px 12px;
+  }
+
+  .postCommentsList {
+    padding: 0 12px 10px;
+  }
+
+  .postAvatar img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .postAuthor {
+    font-size: 13px;
+  }
+
+  .postContent {
+    font-size: 13px;
+  }
+
+  .createPost textarea {
+    padding: 10px 12px;
+    min-height: 80px;
+  }
+
+  .createPost > div {
+    padding: 6px 12px;
+  }
 
   .addPostBtn {
-    padding: 10px 20px;
-    font-size: 14px;
+    padding: 6px 12px;
+    font-size: 13px;
   }
 }

@@ -1,52 +1,138 @@
+/* Enhanced Login/Signup Styles */
 .loginSignupHeader {
-    font-weight: 600;
-    font-size: 30px;
-    color: #ef7917;
-  }
+  font-weight: 800;
+  font-size: 32px;
+  color: #667eea;
+  text-align: center;
+  margin-bottom: 32px;
+  text-shadow: 0 2px 4px rgba(102, 126, 234, 0.1);
+}
+
+/* Force button styles to override any conflicting styles */
+form .field button,
+.loginForm .field button,
+.field button,
+button[type="submit"] {
+  width: 100% !important;
+  margin-top: 20px !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border-radius: 8px !important;
+  color: white !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  padding: 12px 24px !important;
+  border: none !important;
+  outline: none !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+form .field button:hover,
+.loginForm .field button:hover,
+.field button:hover,
+button[type="submit"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4) !important;
+}
+
+form .field button:disabled,
+.loginForm .field button:disabled,
+.field button:disabled,
+button[type="submit"]:disabled {
+  background: linear-gradient(135deg, #a0aec0 0%, #9ca3af 100%) !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: 0 2px 8px rgba(160, 174, 192, 0.3) !important;
+}
+
+.loginForm {
+  background-color: white;
+  padding: 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 450px;
+  margin: 40px auto;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.field input {
+  border: 2px solid #e2e8f0;
+  box-sizing: border-box;
+  border-radius: 8px;
+  width: 100%;
+  height: 48px;
+  margin-top: 8px;
+  padding: 12px 16px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: #fafafa;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .loginForm {
-    background-color: #fff;
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 30%;
-    margin: 50px auto;
-    border-radius: 6px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    margin: 20px auto;
+    padding: 24px;
+    max-width: 90%;
   }
-  .field {
-    width: 100%;
+
+  .loginSignupHeader {
+    font-size: 24px;
+    margin-bottom: 20px;
   }
+
   .field input {
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    box-sizing: border-box;
-    border-radius: 6px;
-    width: 100%;
     height: 40px;
-    margin-top: 20px;
-    padding: 5px;
-    font-size: 15px;
+    font-size: 13px;
   }
-  .field input:focus {
-    outline: none;
-  }
+
   .field button {
-    width: 100%;
-    margin-top: 20px;
-    background: #ef7917;
-    border-radius: 2px;
-    color: #fff;
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loginForm {
+    margin: 16px auto;
+    padding: 20px;
+    max-width: 95%;
+  }
+
+  .loginSignupHeader {
     font-size: 20px;
-    padding: 9px;
-    border: none;
-    outline: none;
+    margin-bottom: 16px;
   }
-  .field button:hover {
-    cursor: pointer;
+
+  .field input {
+    height: 36px;
+    font-size: 12px;
   }
-  .field button:disabled {
-    cursor: not-allowed;
+
+  .field button {
+    font-size: 13px;
+    padding: 8px;
   }
-  
+}

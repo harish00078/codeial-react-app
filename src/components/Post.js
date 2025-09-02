@@ -73,19 +73,19 @@ const Post = ({ post }) => {
           <div>
             <Link
               to={{
-                pathname: `/user/${post.user._id}`,
+                pathname: `/user/${post.author?._id}`,
                 state: {
-                  user: post.user,
+                  user: post.author,
                 },
               }}
               className={styles.postAuthor}
             >
-              {post.user.name}
+              {post.author?.name || 'Anonymous'}
             </Link>
             <span className={styles.postTime}>a minute ago</span>
           </div>
         </div>
-        <div className={styles.postContent}>{post.content}</div>
+        <div className={styles.postContent}>{post.text}</div>
 
         <div className={styles.postActions}>
           <div className={styles.postLike}>
@@ -95,7 +95,7 @@ const Post = ({ post }) => {
                 alt="likes-icon"
               />
             </button>
-            <span>{post.likes.length}</span>
+            <span>{post.likes?.length || 0}</span>
           </div>
 
           <div className={styles.postCommentsIcon}>
@@ -103,7 +103,7 @@ const Post = ({ post }) => {
               src="https://cdn-icons-png.flaticon.com/128/1380/1380338.png"
               alt="comments-icon"
             />
-            <span>{post.comments.length}</span>
+            <span>{post.comments?.length || 0}</span>
           </div>
         </div>
         <div className={styles.postCommentBox}>
@@ -117,13 +117,13 @@ const Post = ({ post }) => {
         </div>
 
         <div className={styles.postCommentsList}>
-          {post.comments.map((comment) => (
+          {post.comments?.map((comment) => (
             <Comment comment={comment} key={`post-comment-${comment._id}`} />
           ))}
         </div>
       </div>
       {/* Show delete button only if the logged-in user is the post author */}
-      {auth.user && auth.user._id === post.user._id && (
+      {auth.user && post.author && auth.user._id === post.author._id && (
         <button className={styles.postDeleteBtn} onClick={handleDeletePost}>
           Delete Post
         </button>

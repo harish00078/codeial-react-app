@@ -59,6 +59,7 @@ const Signup = () => {
   // and we will not release the (block) state of that button:
   // until the (user's) first (sign-up) request does not get satteled by the (server):
   const [signingUp, setSigningUp] = useState("");
+  const [buttonHovered, setButtonHovered] = useState(false);
   // 6 = sixth => here we are importing (toast) function of the (react-hot-toast) library:
   // through which we will basically (provide) and (add) notification in our application component-elements:
   // 7 = seventh => here we will call our (useAuth) custom-hook:
@@ -297,7 +298,37 @@ const Signup = () => {
         {/* here we are (disabling) our button:
                 => acc to the (state) which our (signingUp) state-hook will have: 
                 => IMP = for disabling our button:we are using the (disabled) method of (Button-tag)*/}
-        <button disabled={signingUp}>
+        <button
+          disabled={signingUp}
+          onMouseEnter={() => setButtonHovered(true)}
+          onMouseLeave={() => setButtonHovered(false)}
+          style={{
+            width: "100%",
+            marginTop: "20px",
+            background: signingUp
+              ? "linear-gradient(135deg, #a0aec0 0%, #9ca3af 100%)"
+              : "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            borderRadius: "8px",
+            color: "white",
+            fontSize: "16px",
+            fontWeight: "600",
+            padding: "12px 24px",
+            border: "none",
+            outline: "none",
+            cursor: signingUp ? "not-allowed" : "pointer",
+            transition: "all 0.3s ease",
+            boxShadow:
+              buttonHovered && !signingUp
+                ? "0 8px 25px rgba(102, 126, 234, 0.4)"
+                : "0 4px 15px rgba(102, 126, 234, 0.3)",
+            transform:
+              buttonHovered && !signingUp
+                ? "translateY(-2px)"
+                : "translateY(0)",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
           {/* if our (signingUp) state-hook:
                     => have a (true) value:then button will get disabled.and we will show the (signing up..) text on the button:
                     => but if it has (false) value:then button will not get disabled.and we will show the (signUp) text on the button */}

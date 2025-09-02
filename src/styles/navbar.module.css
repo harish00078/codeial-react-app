@@ -1,4 +1,4 @@
-/* Modern Navbar Styles */
+/* Enhanced and Responsive Navbar Styles */
 .nav {
   display: flex;
   align-items: center;
@@ -66,23 +66,23 @@
 }
 
 .nav span {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
 }
 
 .nav .rightNav {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
   color: white;
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .nav .navLinks ul {
   display: flex;
   list-style: none;
-  gap: 8px;
+  gap: 6px;
   margin: 0;
   padding: 0;
 }
@@ -126,11 +126,11 @@
   cursor: pointer;
 }
 
-/* Enhanced Search Container */
+/* Clean Search Container */
 .searchContainer {
   flex: 1;
-  max-width: 500px;
-  margin: 0 24px;
+  max-width: 400px;
+  margin: 0 20px;
   position: relative;
   display: flex;
 }
@@ -192,17 +192,17 @@
 
 .searchResults ul a {
   text-decoration: none;
-  color: #2d3748;
+  color: #1a202c;
   display: block;
 }
 
 .searchResultsRow {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  transition: all 0.3s ease;
-  border-bottom: 1px solid #f7fafc;
+  gap: 10px;
+  padding: 10px 12px;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f3f4f6;
 }
 
 .searchResultsRow:last-child {
@@ -230,11 +230,11 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
   .nav {
-    padding: 12px 20px;
+    padding: 10px 16px;
   }
 
   .searchContainer {
-    max-width: 400px;
+    max-width: 300px;
     margin: 0 16px;
   }
 
@@ -245,53 +245,9 @@
 
 @media (max-width: 768px) {
   .nav {
-    padding: 12px 16px;
+    padding: 10px 12px;
     flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .logo {
-    font-size: 24px;
-  }
-
-  .logoIcons {
-    font-size: 28px;
-  }
-
-  .searchContainer {
-    order: 3;
-    flex-basis: 100%;
-    max-width: none;
-    margin: 8px 0 0 0;
-  }
-
-  .nav .rightNav {
-    gap: 12px;
-    font-size: 14px;
-  }
-
-  .nav .navLinks ul {
-    gap: 4px;
-  }
-
-  .nav .navLinks ul li a {
-    padding: 6px 12px;
-    font-size: 14px;
-  }
-
-  .nav .user {
-    padding: 6px 12px;
-  }
-
-  .nav .userDp {
-    width: 32px;
-    height: 32px;
-  }
-}
-
-@media (max-width: 480px) {
-  .nav {
-    padding: 8px 12px;
+    gap: 8px;
   }
 
   .logo {
@@ -302,9 +258,20 @@
     font-size: 24px;
   }
 
+  .searchContainer {
+    order: 3;
+    flex-basis: 100%;
+    max-width: none;
+    margin: 6px 0 0 0;
+  }
+
   .nav .rightNav {
-    gap: 8px;
+    gap: 10px;
     font-size: 13px;
+  }
+
+  .nav .navLinks ul {
+    gap: 3px;
   }
 
   .nav .navLinks ul li a {
@@ -320,15 +287,48 @@
     width: 28px;
     height: 28px;
   }
+}
+
+@media (max-width: 480px) {
+  .nav {
+    padding: 8px 10px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .logoIcons {
+    font-size: 20px;
+  }
+
+  .nav .rightNav {
+    gap: 6px;
+    font-size: 12px;
+  }
+
+  .nav .navLinks ul li a {
+    padding: 3px 6px;
+    font-size: 12px;
+  }
+
+  .nav .user {
+    padding: 3px 6px;
+  }
+
+  .nav .userDp {
+    width: 24px;
+    height: 24px;
+  }
 
   .searchContainer input {
-    padding: 10px 14px 10px 40px;
-    font-size: 14px;
+    padding: 6px 10px 6px 30px;
+    font-size: 13px;
   }
 
   .searchIcon {
-    left: 12px;
-    width: 18px;
-    height: 18px;
+    left: 8px;
+    width: 14px;
+    height: 14px;
   }
 }

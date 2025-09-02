@@ -153,6 +153,7 @@ export const deletePost = (postId) => {
   });
 };
 
+
 // Comments APIs
 export const getPostComments = (postId) => {
   if (USE_MOCKS) return Promise.resolve({ success: true, data: { comments: [] } });
