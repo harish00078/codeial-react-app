@@ -228,14 +228,15 @@ export const fetchUserFriends = () => {
 
 export const addFriend = (userId) => {
   if (USE_MOCKS) return mockApi.addFriend(userId);
-  return customFetch(API_URLS.createFriendship(userId), {
+  return customFetch(API_URLS.createFriendship(), {
     method: "POST",
+    body: { userId },
   });
 };
 
 export const removeFriend = (userId) => {
   if (USE_MOCKS) return mockApi.removeFriend(userId);
   return customFetch(API_URLS.removeFriend(userId), {
-    method: "POST",
+    method: "DELETE",
   });
 };

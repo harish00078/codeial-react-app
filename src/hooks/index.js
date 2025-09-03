@@ -51,7 +51,7 @@ export const useProvideAuth = () => {
           let friends = [];
 
           if (friendsResponse.success) {
-            friends = friendsResponse.data.friends || [];
+            friends = friendsResponse.data.friends.map(friend => friend.to_user);
           }
 
           setUser({
@@ -169,7 +169,7 @@ export const useProvideAuth = () => {
     }
 
     const newFriends = user.friends.filter(
-      (f) => f.to_user._id !== friend.to_user._id
+      (f) => f._id !== friend
     );
     setUser({
       ...user,

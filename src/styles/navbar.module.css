@@ -126,6 +126,48 @@
   cursor: pointer;
 }
 
+/* Explicit button styles for auth links to ensure consistent hover */
+.button {
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  backdrop-filter: blur(6px);
+}
+
+.button:hover {
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.primaryButton {
+  border-color: #ffd700;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 215, 0, 0.25),
+    rgba(255, 215, 0, 0.15)
+  );
+  color: #131313;
+}
+
+.primaryButton:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 215, 0, 0.4),
+    rgba(255, 215, 0, 0.25)
+  );
+  color: #0b0b0b;
+}
+
+.ghostButton {
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.ghostButton:hover {
+  border-color: #ffffff;
+}
+
 /* Clean Search Container */
 .searchContainer {
   flex: 1;

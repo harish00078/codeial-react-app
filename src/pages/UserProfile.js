@@ -133,7 +133,7 @@ const UserProfile = () => {
     // so that we can match those (user-id's).with the (user-id) of (user-profile) which we are currently (reviewing) or (Checking).
     // so we can find out that this (user) is already or not a (friend) of our current (user):
     // IMP = and acc to the (value) of this function.we gonna be the show the (buttons) which is related to this component:
-    const friendIds = friends.map((friend) => friend.to_user._id);
+    const friendIds = friends.map((friend) => friend._id);
     // IMP = after getting all (friends-ids):
     // we need to match those (ids).with the (user-id) of (user-profile) which we are currently checking-out:
     // IMP = how we can do that.we can simply do that by checking. if any of the (index-value) of our (friends-array) or (friend-user-ids) array which we created.matches with the (user-id) of (user-profile) which we are currently checking-out:
@@ -167,18 +167,8 @@ const UserProfile = () => {
       // IMP => 1 =  for doing this first we need to find the user-object in the friends section-data of current user's-profile:
       // we can get the user-object from the friends-section:by using its userId:because we have the userId with us which we are getting from the url-params:
       // for finding the user-object.we need to use the (filter) method:because friends-section is the array of multiple user-objects:and we only need to find the one user-object:acc to the userId of the user:
-      const friendship = auth.user.friends.filter(
-        (friend) => friend.to_user._id === userId
-      );
-
-      // we can also write the same thing in this way:
-      // const friendship = auth.user.friends.filter((friend) => {
-      //   friend.to_user._id === userId;
-      // });
-      // IMP = filter method basically return us the (array);
-      // so we also need to define (index-value) of the array:
-      // so  we can acccess that array-value and use it in the (updateUserFriends) function:
-      auth.updateUserFriends(false, friendship[0]);
+      const { userId: removedFriendId } = response.data;
+      auth.updateUserFriends(false, removedFriendId);
       toast.success("Friend Removed Successfully");
     } else {
       toast.error(response.message);
@@ -209,7 +199,7 @@ const UserProfile = () => {
       // IMP = this function basically have the two arguments in it:
       // => 1 = first argument basically a boolean-value:which define that we are try to add or remove the user as a friend:
       // => 2 = second argument is basically the data related to the user or friend:or we can say the new friend-ship data which we are getting from the server:
-      auth.updateUserFriends(true, friendship);
+      auth.updateUserFriends(true, friendship.to_user);
 
       // after all of these we will add the notification:
       toast.success("Friend Added succesfully");

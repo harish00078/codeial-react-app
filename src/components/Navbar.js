@@ -31,12 +31,12 @@ const Navbar = () => {
       const response = await searchUsers(searchText);
       if (response.success) {
         // setSearchText('');
-        setResults(response.data.users);
+        setResults(response.data);
       }
     };
     if (searchText.length > 2) {
       fetchUsers();
-    }else{
+    } else {
       setResults([]);
     }
   }, [searchText]);
@@ -184,12 +184,22 @@ const Navbar = () => {
                 <li>
                   {/* under List-tag.we will use the anchor-tag.
                     => To create a particular link or button for the particular thing */}
-                  <Link to="/login">Log-In</Link>
+                  <Link
+                    className={`${styles.button} ${styles.ghostButton}`}
+                    to="/login"
+                  >
+                    Log-In
+                  </Link>
                 </li>
 
                 {/* this list-tag.will have link of (register) component: */}
                 <li>
-                  <Link to="/register">Register</Link>
+                  <Link
+                    className={`${styles.button} ${styles.primaryButton}`}
+                    to="/register"
+                  >
+                    Register
+                  </Link>
                 </li>
               </>
             )}

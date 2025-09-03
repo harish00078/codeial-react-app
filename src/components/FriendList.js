@@ -34,7 +34,7 @@ const FriendList = () => {
               {/* here we are passing the url of (user-profile) component:to this Link-tag:
             => because (friend-id's) are similar to the (user-id's):basically the (friend) object or documents are made from the (user) object or documents:  */}
             {/* IMP => /user/${friend._id} is constructing a URL string dynamically, incorporating the unique _id of each friend object into the URL path. This is commonly used in React applications to create dynamic links and navigate to specific pages or resources. */}
-              <Link className={styles.friendsItem} to={`/user/${friend.to_user._id}`}>
+              <Link className={styles.friendsItem} to={`/user/${friend._id}`}>
                 {/* here we are showing the details of the (friends):
               => like there (names) and (images):*/}
                 <div className={styles.friendsImg}> 
@@ -43,7 +43,7 @@ const FriendList = () => {
                     alt=""
                   />
                   <div className={styles.friendsName}>
-                    {friend.to_user.email}
+                    {friend.email}
                   </div>
                 </div>
               </Link>

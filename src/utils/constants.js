@@ -37,12 +37,12 @@ export const API_URLS = {
   unlikePost: () => `${API_ROOT}likes/unlike`, // POST unlike a post
 
   // Legacy endpoints (keeping for backward compatibility if needed)
-  searchUsers: (searchText) => `${API_ROOT}users/search?text=${searchText}`,
+  searchUsers: (searchText) => `${API_ROOT}users/search?q=${searchText}`,
   
   // These might not be in your current API but keeping for reference
-  friends: () => `${API_ROOT}friendship/fetch_user_friends`,
-  createFriendship: (userId) => `${API_ROOT}friendship/create_friendship?user_id=${userId}`,
-  removeFriend: (userId) => `${API_ROOT}friendship/remove_friendship?user_id=${userId}`,
+  friends: () => `${API_ROOT}friendship`,
+  createFriendship: () => `${API_ROOT}friendship/add`,
+  removeFriend: (userId) => `${API_ROOT}friendship/remove/${userId}`,
 };
 
 // Token storage key
