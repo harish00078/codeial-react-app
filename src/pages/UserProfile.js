@@ -126,14 +126,11 @@ const UserProfile = () => {
     const { friends = [] } = auth.user || {};
     console.log(friends);
 
-    // with in our user's (friends-array) we have the (objects).where each-object related our (each-friends) profile-data:
-    // each-object which is related to our particular friend.will have the (to_user) section in it:
-    // and with in or that (to_user) section. will have the (user-id) which is related to our paritcular friend:
-    // IMP = so we need to (map) over on those (user-id's) which is related to our (friends):
-    // so that we can match those (user-id's).with the (user-id) of (user-profile) which we are currently (reviewing) or (Checking).
-    // so we can find out that this (user) is already or not a (friend) of our current (user):
-    // IMP = and acc to the (value) of this function.we gonna be the show the (buttons) which is related to this component:
-    const friendIds = friends.map((friend) => friend._id);
+    // Handle both friendship objects (with to_user) and direct user objects
+    const friendIds = friends.map((friend) => {
+      // If it's a friendship object, get the to_user._id, otherwise get the user._id directly
+      return friend.to_user ? friend.to_user._id : friend._id;
+    });
     // IMP = after getting all (friends-ids):
     // we need to match those (ids).with the (user-id) of (user-profile) which we are currently checking-out:
     // IMP = how we can do that.we can simply do that by checking. if any of the (index-value) of our (friends-array) or (friend-user-ids) array which we created.matches with the (user-id) of (user-profile) which we are currently checking-out:

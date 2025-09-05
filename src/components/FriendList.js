@@ -28,27 +28,25 @@ const FriendList = () => {
         => so that with the help of (link): when user clicks the link:
         => we can transfer the (user) to the (friends) user-profile: */}
         {friends &&
-          friends.map((friend) => (
-            // IMP => when used in the context of rendering a list of friends, key={friend-${friend._id}} ensures that each friend element in the list has a unique identifier, which helps React optimize its rendering performance and efficient-updates.
-            <div key={`friend-${friend._id}`}>
-              {/* here we are passing the url of (user-profile) component:to this Link-tag:
-            => because (friend-id's) are similar to the (user-id's):basically the (friend) object or documents are made from the (user) object or documents:  */}
-            {/* IMP => /user/${friend._id} is constructing a URL string dynamically, incorporating the unique _id of each friend object into the URL path. This is commonly used in React applications to create dynamic links and navigate to specific pages or resources. */}
-              <Link className={styles.friendsItem} to={`/user/${friend._id}`}>
-                {/* here we are showing the details of the (friends):
-              => like there (names) and (images):*/}
-                <div className={styles.friendsImg}> 
-                  <img
-                    src="https://ninjasfiles.s3.amazonaws.com/0000000000003454.png"
-                    alt=""
-                  />
-                  <div className={styles.friendsName}>
-                    {friend.email}
+          friends.map((friend) => {
+            // Handle both friendship objects and direct user objects
+            const friendUser = friend.to_user || friend;
+            return (
+              <div key={`friend-${friendUser._id}`}>
+                <Link className={styles.friendsItem} to={`/user/${friendUser._id}`}>
+                  <div className={styles.friendsImg}> 
+                    <img
+                      src="https://ninjasfiles.s3.amazonaws.com/0000000000003454.png"
+                      alt=""
+                    />
+                    <div className={styles.friendsName}>
+                      {friendUser.name || friendUser.email}
+                    </div>
                   </div>
-                </div>
-              </Link>
-            </div>
-          ))}
+                </Link>
+              </div>
+            );
+          })}
       </div>
     </div>
   );
